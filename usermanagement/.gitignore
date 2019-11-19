@@ -20,4 +20,4 @@ bin*
 *.txt
 *.iml
 *managment*.xml
-usermanagment.properties
+usermanegment.properties

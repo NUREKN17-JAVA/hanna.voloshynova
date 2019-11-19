@@ -36,7 +36,7 @@
     <target name="test-compile" depends="compile">
     	<javac srcdir="${test-java-dir}" destdir="${build-dir}" includeantruntime="false">
     		<classpath>
-    			<path id="org.junit" location="C:\Users\фитир\eclipse-workspace\plugins\org.junit_4.12.0.v201504281640\junit.jar"/>
+    			<path id="org.junit" location="C:\Users\фитир\eclipse\plugins\org.junit_4.12.0.v201504281640\junit.jar"/>
     		</classpath>
     	</javac>
     </target>

@@ -1,11 +1,10 @@
-package ua.nure.cs.voloshynova.usermanagement;
-
+package ua.nure.cs.voloshynova.usermanagement.domain;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class user implements Serializable {
+public class User implements Serializable {
 	/**
 	 * 
 	 */

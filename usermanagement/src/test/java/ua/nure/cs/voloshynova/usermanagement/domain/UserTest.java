@@ -1,9 +1,9 @@
-package ua.nure.cs.voloshynova.usermanagement;
+package ua.nure.cs.voloshynova.usermanagement.domain;
 
 import java.util.Calendar;
 import junit.framework.TestCase;
 
-public class userTest extends TestCase {
+public class UserTest extends TestCase {
 
 	private static final int ETALONE_OF_AGE1 = 19;
 	private static final int ETALONE_OF_AGE2= 21;
@@ -19,7 +19,7 @@ public class userTest extends TestCase {
 	private static final int MONTH_OF_BIRTH_7=12;
 	private static final int DAY_OF_BIRTH_7=31;
 	private static final int YEAR_OF_BIRTH_7=1999;
-	private user user;
+	private User user;
 	private Calendar calendar;
 	
 	public void testGetFullName() {
@@ -66,7 +66,7 @@ public class userTest extends TestCase {
 	}
 	protected void setUp() throws Exception {
 		super.setUp();
-		user = new user();
+		user = new User();
 		calendar=Calendar.getInstance();
 		
 	}
