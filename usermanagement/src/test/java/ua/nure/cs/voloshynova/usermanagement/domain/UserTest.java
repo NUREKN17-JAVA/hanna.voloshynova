@@ -2,6 +2,7 @@ package ua.nure.cs.voloshynova.usermanagement.domain;
 
 import java.util.Calendar;
 import junit.framework.TestCase;
+import ua.nure.cs.voloshynova.usermanagement.domain.User;
 
 public class UserTest extends TestCase {
 

@@ -9,10 +9,24 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 
+import ua.nure.cs.voloshynova.usermanagement.db.ConnectionFactory;
+import ua.nure.cs.voloshynova.usermanagement.db.ConnectionFactoryImpl;
+import ua.nure.cs.voloshynova.usermanagement.db.DatabaseException;
+import ua.nure.cs.voloshynova.usermanagement.db.HsqldbUserDao;
 import ua.nure.cs.voloshynova.usermanagement.domain.User;
 
 public class HsqldbUserDaoTest extends DatabaseTestCase {
 
+	private static final Date DATE_OF_BIRTH_UPDATE2 = new Date(1999-11-15);
+	private static final Date DATE_OF_BIRTH_UPDATE = new Date(2000-04-11);
+	private static final String LAST_NAME_UPDATE2 = "Voloshynova";
+	private static final String FIRST_NAME_UPDATE2 = "Anna";
+	private static final String FIRST_NAME2 = "Bill";
+	private static final String LAST_NAME2 = "Gates";
+	private static final long ID = 1000L;
+
+	private static final String LAST_NAME_UPDATE = "Petrykin";
+	private static final String FIRST_NAME_UPDATE = "Misha";
 	private static final String LAST_NAME = "Due";
 	private static final String FIRST_NAME = "John";
 	
@@ -39,28 +53,38 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	}
 	public void testUpdate() throws DatabaseException{
 		User user = new User();
-		user.setFirstName("Misha");
-		user.setLastName("Petrykin");
-		user.setDateOfBirth(new Date());
-		user.setId(1000L);
-		dao.update(user);
-		assertNotNull(user);
-		assertNotNull(user.getId());
-		assertNotNull(user.getFirstName());
-		assertNotNull(user.getLastName());
-		assertNotNull(user.getDateOfBirth());
+		user.setFirstName(FIRST_NAME_UPDATE);
+		user.setLastName(LAST_NAME_UPDATE);
+		user.setDateOfBirth(DATE_OF_BIRTH_UPDATE);
+		User userToChek = dao.create(user);
+		assertEquals(FIRST_NAME_UPDATE,userToChek.getFirstName());
+		assertEquals(LAST_NAME_UPDATE,userToChek.getLastName());
+		assertEquals(DATE_OF_BIRTH_UPDATE,userToChek.getDateOfBirth());
+		userToChek.setFirstName(FIRST_NAME_UPDATE2);
+		userToChek.setLastName(LAST_NAME_UPDATE2);
+		userToChek.setDateOfBirth(DATE_OF_BIRTH_UPDATE2);
+		dao.update(userToChek);
+		assertEquals(FIRST_NAME_UPDATE2,userToChek.getFirstName());
+		assertEquals(LAST_NAME_UPDATE2,userToChek.getLastName());
+		assertEquals(DATE_OF_BIRTH_UPDATE2,userToChek.getDateOfBirth());
 	}
 	public void testDelete() throws DatabaseException{
 		User user = new User();
-		user.setId(1000L);
-		assertNotNull(dao.find(1000L));
+		user.setFirstName(FIRST_NAME_UPDATE);
+		user.setLastName(LAST_NAME_UPDATE);
+		user.setDateOfBirth(DATE_OF_BIRTH_UPDATE);
+		User userToChek = dao.create(user);
+		assertNotNull(userToChek.getId());
+		dao.delete(userToChek);
+		User user2 = dao.find(userToChek.getId());
+		assertNull(user2);
+		assertNull(user2.getId());
 	}
 	
 	public void testFind() throws DatabaseException{
-		User userToChek = dao.find(1000L);
-		assertEquals("Error","Gates",userToChek.getLastName());
-		assertEquals("Error","Bill",userToChek.getFirstName());
-	
+		User userToChek = dao.find(ID);
+		assertEquals("Wrong data",LAST_NAME2,userToChek.getLastName());
+		assertEquals("Wrong data",FIRST_NAME2,userToChek.getFirstName());
 	}
 	
 	public void testFindAll() throws DatabaseException {
